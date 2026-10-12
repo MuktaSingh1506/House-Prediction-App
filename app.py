@@ -8,7 +8,8 @@
 import streamlit as st
 import numpy as np
 import pandas as pd
-import plotly.express as px
+import matplotlib.pyplot as plt
+# import plotly.express as px
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import mean_squared_error
 from sklearn.linear_model import LinearRegression
@@ -44,13 +45,22 @@ def main():
 
     df = generate_house_data()
 
-    fig = px.scatter(df, x="size", y="price", title="Size vs House price")
-    fig.add_scatter(x=[size], y=[predicted_price[0]],
-        mode = 'markers',
-        marker = dict(size=15, color='red'),
-        name='Prediction'
-    )
-    st.plotly_chart(fig)
+    fig, ax = plt.subplots()
+
+    ax.scatter(y_test, y_pred)
+    ax.set_xlabel("Actual House Prices")
+    ax.set_ylabel("Predicted House Prices")
+    ax.set_title("Actual vs Predicted House Prices")
+    st.pyplot(fig)
+    plt.close(fig)
+
+    # fig = px.scatter(df, x="size", y="price", title="Size vs House price")
+    # fig.add_scatter(x=[size], y=[predicted_price[0]],
+    #     mode = 'markers',
+    #     marker = dict(size=15, color='red'),
+    #     name='Prediction'
+    # )
+    # st.plotly_chart(fig)
 
 if __name__ == '__main__':
   main()
